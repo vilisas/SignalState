@@ -8,6 +8,9 @@
 
 #include <SignalState.h>
 
+/*
+ * Default constructor, takes arduino input PIN as parameter
+ */
 SignalState::SignalState(uint8_t input) {
 	_input_pin		= input;
 }
@@ -21,7 +24,7 @@ void SignalState::loop() {
 
 		processRealState();
 		processFixedState();
-		_loop_call_time = millis();
+		_loop_call_time = ms;
 	}
 
 }
@@ -89,9 +92,14 @@ void SignalState::processRealState(){
  * Actually inverted value here. digitalRead(A1) with pull up is 1, and shorted to ground is 0
  * but what we want is logical state.
  * this can be changed back with setInverted(true)
+ *
+ * if _input_pin is not set, always return 0
+ *
  */
 int8_t SignalState::readRealState(){
-
+	if (_input_pin == 0) {
+		return 0;
+	}
   uint8_t one = 0;
   uint8_t zero = 0;
   uint8_t state;
