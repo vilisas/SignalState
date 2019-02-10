@@ -20,7 +20,7 @@ void SignalState::loop() {
 	unsigned long ms = millis();
 
 	//	call only if time from last call is > 100 ms
-	if (ms - _loop_call_time >= SIGNALSTATE_READ_INTERVAL){
+	if (ms - _loop_call_time >= TIMERELAY_CHECK_INTERVAL){
 
 		processRealState();
 		processFixedState();

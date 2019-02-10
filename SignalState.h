@@ -16,7 +16,7 @@
 #define SIGNALSTATE_MIN_SAMPLES  15
 
 // read states if time since last read is greater than milliseconds below
-#define SIGNALSTATE_READ_INTERVAL 100
+#define TIMERELAY_CHECK_INTERVAL 100
 
 class SignalState{
 
@@ -44,63 +44,63 @@ class SignalState{
     public:
 	SignalState(uint8_t input);
 	virtual ~SignalState(){}
-	void setup(){};
+	inline void setup(){};
 	void loop();
 
-	bool isBlocked() const {
+	inline bool isBlocked() const {
 		return _blocked;
 	}
 
 	// Don't change fixed state if _blocked is set to true
-	void setBlockedState(bool blocked = false) {
+	inline void setBlockedState(bool blocked = false) {
 		_blocked = blocked;
 	}
 
-	uint8_t getFixTime() const {
+	inline uint8_t getFixTime() const {
 		return _fix_time;
 	}
 
 	// Time in seconds
-	void setFixTime(uint8_t fixTime = 0) {
+	inline void setFixTime(uint8_t fixTime = 0) {
 		_fix_time = fixTime;
 	}
 
-	bool isInverted() const {
+	inline bool isInverted() const {
 		return _inverted;
 	}
 
 	// Invert input value
-	void setInverted(bool inverted) {
+	inline void setInverted(bool inverted) {
 		_inverted = inverted;
 	}
 
-	bool isAckRequired() const {
+	inline bool isAckRequired() const {
 		return _ack_required;
 	}
 
 	// fixed state must be acknowledged before it can change again
-	void setAck() {
+	inline void setAck() {
 		_ack_required = false;
 	}
 	// true = fixed, false = not fixed
-	bool isFixed() const {
+	inline bool isFixed() const {
 		return _state_fixed;
 	}
 	// returns last read result
-	bool getRealState() const {
+	inline bool getRealState() const {
 		return _state_real;
 	}
 
-	uint8_t getInputPin() const {
+	inline uint8_t getInputPin() const {
 		return _input_pin;
 	}
 
-	void setInputPin(uint8_t tsPin) {
+	inline void setInputPin(uint8_t tsPin) {
 		_input_pin = tsPin;
 	}
 
 	// calls this if fixed state changes
-	void setStateChangeCallback(
+	inline void setStateChangeCallback(
 			void (* statusChangeCallback)(bool)) {
 		this->onStateChanged = statusChangeCallback;
 	}
